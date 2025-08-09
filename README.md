@@ -42,7 +42,7 @@ Built with **Django REST Framework** having **JWT authentication**, with **Celer
 
 ```bash
 # Clone repository
-git clone <repo_url>
+git clone https://github.com/PalRhitika/spices-backend.git
 cd spices-backend
 
 # Create virtual environment
