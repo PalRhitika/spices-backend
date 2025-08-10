@@ -104,7 +104,8 @@ CELERY_RESULT_BACKEND=redis://localhost:6379/0
 
 ## Postman Collection
 Import `sample-requests.json` into Postman to test all endpoints.
-
+Or find the postman doumentation here:
+https://documenter.getpostman.com/view/26667485/2sB3BEmphW
 ---
 
 ## API Endpoints
