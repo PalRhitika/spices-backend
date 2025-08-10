@@ -2,30 +2,22 @@
   "info": {
     "name": "Spices Backend API",
     "_postman_id": "12345678-abcd-efgh-ijkl-1234567890ab",
-    "description": "Postman collection for F1Soft Spices Backend Assessment",
+    "description": "Postman collection for F1Soft Spices Backend Assessment — Includes all authentication, connection, and notification APIs with example requests and descriptions.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
     {
       "name": "User Registration",
       "request": {
+        "description": "Registers a new user with full details including username, password, contact information, and company details.\n- Password must contain at least one number and one special character.\n- Contact number must follow Nepali format: (+977)?[9][6-9]\\d{8}.",
         "method": "POST",
         "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
+          { "key": "Content-Type", "value": "application/json" }
         ],
         "url": {
           "raw": "{{base_url}}/users/register/",
-          "host": [
-            "{{base_url}}"
-          ],
-          "path": [
-            "users",
-            "register",
-            ""
-          ]
+          "host": ["{{base_url}}"],
+          "path": ["users", "register", ""]
         },
         "body": {
           "mode": "raw",
@@ -36,23 +28,15 @@
     {
       "name": "Login",
       "request": {
+        "description": "Authenticates a user with username and password.\n- Returns JWT access token (valid for 15 minutes) and refresh token.\n- Access token is required for all protected endpoints.",
         "method": "POST",
         "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
+          { "key": "Content-Type", "value": "application/json" }
         ],
         "url": {
           "raw": "{{base_url}}/users/login/",
-          "host": [
-            "{{base_url}}"
-          ],
-          "path": [
-            "users",
-            "login",
-            ""
-          ]
+          "host": ["{{base_url}}"],
+          "path": ["users", "login", ""]
         },
         "body": {
           "mode": "raw",
@@ -63,24 +47,15 @@
     {
       "name": "Token Refresh",
       "request": {
+        "description": "Generates a new access token using a valid refresh token.\n- Use when access token expires.\n- Refresh token remains valid until manually revoked or expired.",
         "method": "POST",
         "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
+          { "key": "Content-Type", "value": "application/json" }
         ],
         "url": {
           "raw": "{{base_url}}/users/token/refresh/",
-          "host": [
-            "{{base_url}}"
-          ],
-          "path": [
-            "users",
-            "token",
-            "refresh",
-            ""
-          ]
+          "host": ["{{base_url}}"],
+          "path": ["users", "token", "refresh", ""]
         },
         "body": {
           "mode": "raw",
@@ -91,27 +66,17 @@
     {
       "name": "User Search",
       "request": {
+        "description": "Searches for users by full name, company name, email, or contact number.\n- Excludes the currently logged-in user.\n- Use `?q=<search_term>` to search.",
         "method": "GET",
         "header": [
-          {
-            "key": "Authorization",
-            "value": "Bearer {{access_token}}"
-          }
+          { "key": "Authorization", "value": "Bearer {{access_token}}" }
         ],
         "url": {
           "raw": "{{base_url}}/connections/search/?q={{query}}",
-          "host": [
-            "{{base_url}}"
-          ],
-          "path": [
-            "users",
-            "search"
-          ],
+          "host": ["{{base_url}}"],
+          "path": ["users", "search"],
           "query": [
-            {
-              "key": "q",
-              "value": "{{query}}"
-            }
+            { "key": "q", "value": "{{query}}" }
           ]
         }
       }
@@ -119,28 +84,16 @@
     {
       "name": "Send Connection Request",
       "request": {
+        "description": "Sends a connection request to another user.\n- Requires the `user_id` of the recipient in the URL.\n- Prevents sending duplicate requests to the same user.",
         "method": "POST",
         "header": [
-          {
-            "key": "Authorization",
-            "value": "Bearer {{access_token}}"
-          },
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
+          { "key": "Authorization", "value": "Bearer {{access_token}}" },
+          { "key": "Content-Type", "value": "application/json" }
         ],
         "url": {
           "raw": "{{base_url}}/connections/send/{{user_id}}",
-          "host": [
-            "{{base_url}}"
-          ],
-          "path": [
-            "connections",
-            "send",
-            "{{user_id}}",
-            ""
-          ]
+          "host": ["{{base_url}}"],
+          "path": ["connections", "send", "{{user_id}}", ""]
         },
         "body": {
           "mode": "raw",
@@ -151,28 +104,16 @@
     {
       "name": "Accept/Reject Connection",
       "request": {
+        "description": "Accepts or rejects a pending connection request.\n- Requires `connection_id` in the URL.\n- Action must be either `ACCEPTED` or `REJECTED`.\n- Sends notification to requester via Celery.",
         "method": "POST",
         "header": [
-          {
-            "key": "Authorization",
-            "value": "Bearer {{access_token}}"
-          },
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
+          { "key": "Authorization", "value": "Bearer {{access_token}}" },
+          { "key": "Content-Type", "value": "application/json" }
         ],
         "url": {
           "raw": "{{base_url}}/connections/respond/1/",
-          "host": [
-            "{{base_url}}"
-          ],
-          "path": [
-            "connections",
-            "respond",
-            "1",
-            ""
-          ]
+          "host": ["{{base_url}}"],
+          "path": ["connections", "respond", "1", ""]
         },
         "body": {
           "mode": "raw",
@@ -183,95 +124,61 @@
     {
       "name": "List Sent Requests",
       "request": {
+        "description": "Retrieves all connection requests sent by the logged-in user.\n- Includes request status and recipient details.",
         "method": "GET",
         "header": [
-          {
-            "key": "Authorization",
-            "value": "Bearer {{access_token}}"
-          }
+          { "key": "Authorization", "value": "Bearer {{access_token}}" }
         ],
         "url": {
           "raw": "{{base_url}}/connections/sent/",
-          "host": [
-            "{{base_url}}"
-          ],
-          "path": [
-            "connections",
-            "sent",
-            ""
-          ]
+          "host": ["{{base_url}}"],
+          "path": ["connections", "sent", ""]
         }
       }
     },
     {
       "name": "List Received Requests",
       "request": {
+        "description": "Retrieves all pending connection requests received by the logged-in user.",
         "method": "GET",
         "header": [
-          {
-            "key": "Authorization",
-            "value": "Bearer {{access_token}}"
-          }
+          { "key": "Authorization", "value": "Bearer {{access_token}}" }
         ],
         "url": {
           "raw": "{{base_url}}/connections/requests/",
-          "host": [
-            "{{base_url}}"
-          ],
-          "path": [
-            "connections",
-            "requests",
-            ""
-          ]
+          "host": ["{{base_url}}"],
+          "path": ["connections", "requests", ""]
         }
       }
     },
     {
       "name": "List Notifications",
       "request": {
+        "description": "Lists all notifications for the logged-in user.\n- Includes both read and unread notifications.",
         "method": "GET",
         "header": [
-          {
-            "key": "Authorization",
-            "value": "Bearer {{access_token}}"
-          }
+          { "key": "Authorization", "value": "Bearer {{access_token}}" }
         ],
         "url": {
           "raw": "{{base_url}}/notifications/",
-          "host": [
-            "{{base_url}}"
-          ],
-          "path": [
-            "notifications",
-            ""
-          ]
+          "host": ["{{base_url}}"],
+          "path": ["notifications", ""]
         }
       }
     },
     {
       "name": "Mark Notification as Read",
       "request": {
+        "description": "Marks a specific notification as read.\n- Requires `notification_id` in the URL.",
         "method": "PATCH",
         "header": [
-          {
-            "key": "Authorization",
-            "value": "Bearer {{access_token}}"
-          },
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
+          { "key": "Authorization", "value": "Bearer {{access_token}}" },
+          { "key": "Content-Type", "value": "application/json" }
         ],
         "url": {
           "raw": "{{base_url}}/notifications/1/",
-          "host": [
-            "{{base_url}}"
-          ],
-          "path": [
-            "notifications",
-            "1",
-            ""
-          ]
+          "host": ["{{base_url}}"],
+          "path": ["notifications", "1", ""]
         },
         "body": {
           "mode": "raw",
@@ -282,35 +189,21 @@
     {
       "name": "Delete Notification",
       "request": {
+        "description": "Deletes a specific notification for the logged-in user.\n- Requires `notification_id` in the URL.",
         "method": "DELETE",
         "header": [
-          {
-            "key": "Authorization",
-            "value": "Bearer {{access_token}}"
-          }
+          { "key": "Authorization", "value": "Bearer {{access_token}}" }
         ],
         "url": {
           "raw": "{{base_url}}/notifications/1/",
-          "host": [
-            "{{base_url}}"
-          ],
-          "path": [
-            "notifications",
-            "1",
-            ""
-          ]
+          "host": ["{{base_url}}"],
+          "path": ["notifications", "1", ""]
         }
       }
     }
   ],
   "variable": [
-    {
-      "key": "base_url",
-      "value": "http://127.0.0.1:8000"
-    },
-    {
-      "key": "access_token",
-      "value": ""
-    }
+    { "key": "base_url", "value": "http://127.0.0.1:8000" },
+    { "key": "access_token", "value": "" }
   ]
 }

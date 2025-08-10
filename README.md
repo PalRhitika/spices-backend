@@ -152,5 +152,24 @@ Destroying test database for alias 'default'...
 
 ---
 
+---
+## Security Best Practices Implemented
+- Environment Variables – All sensitive data (secret key, DB credentials, Redis URL) is stored in .env and not committed to version control.
+
+- Password Hashing – Uses Django’s built-in set_password() to securely hash passwords before storing them in the database.
+
+- JWT Expiry & Refresh Tokens – Access tokens expire in 15 minutes to reduce risk from token theft, with refresh tokens for re-authentication.
+
+- Field Validation – Email format, unique constraints, and Nepali contact number regex validation applied.
+
+- Permission Classes – DRF’s IsAuthenticated enforced on all non-public endpoints.
+
+- CSRF & CORS – CSRF enabled for session authentication and CORS settings can be restricted for production.
+
+- Database Indexing – Optimized lookups with indexed fields for faster queries.
+
+- Error Handling – Structured error responses to avoid exposing stack traces in production.
+--
+
 ## Author
 Rhitika Pal
